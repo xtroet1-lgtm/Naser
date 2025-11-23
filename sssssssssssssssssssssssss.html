@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نيكولا تسلا - عالم غيّر المستقبل</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        :root {
+            --primary: #020817;
+            --secondary: #061529;
+            --accent: #38bdf8;
+            --accent2: #22c55e;
+            --text: #f8fafc;
+            --text-secondary: #94a3b8;
+        }
+        
+        body {
+            background: radial-gradient(circle at top, #0b1220, #020617 60%);
+            color: var(--text);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        .presentation-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .slide {
+            background-size: cover;
+            background-position: center;
+            border-radius: 18px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.6);
+            display: none;
+            animation: fadeIn 0.7s ease;
+            min-height: 560px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .slide::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(15,23,42,0.93), rgba(15,23,42,0.85));
+            z-index: 1;
+        }
+        
+        .slide > * {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .slide.active {
+            display: block;
+        }
+        
+        /* خلفيات لكل شريحة (تقدر تغيّر الروابط براحتك) */
+        #slide1 {
+            background-image: url('https://images.unsplash.com/photo-1518432031352-d6fc5c10da5a?auto=format&fit=crop&w=1350&q=80');
+        }
+        
+        #slide2 {
+            background-image: url('https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1350&q=80');
+        }
+        
+        #slide3 {
+            background-image: url('https://images.unsplash.com/photo-1526498460520-4c246339dccb?auto=format&fit=crop&w=1350&q=80');
+        }
+        
+        #slide4 {
+            background-image: url('https://images.unsplash.com/photo-1510557880182-3d4d3cba35a5?auto=format&fit=crop&w=1350&q=80');
+        }
+        
+        #slide5 {
+            background-image: url('https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=1350&q=80');
+        }
+        
+        .slide-header {
+            text-align: center;
+            margin-bottom: 28px;
+            padding-bottom: 18px;
+            border-bottom: 2px solid rgba(56,189,248,0.8);
+        }
+        
+        .slide-title {
+            font-size: 2.6rem;
+            margin-bottom: 12px;
+            color: var(--accent);
+            text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+        }
+        
+        .slide-subtitle {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+        }
+        
+        .content-box {
+            background: rgba(15,23,42,0.78);
+            border-radius: 14px;
+            padding: 22px 24px;
+            margin-bottom: 18px;
+            border-right: 4px solid var(--accent);
+            box-shadow: 0 6px 18px rgba(15,23,42,0.7);
+            backdrop-filter: blur(6px);
+        }
+        
+        .content-title {
+            font-size: 1.6rem;
+            margin-bottom: 10px;
+            color: var(--accent);
+        }
+        
+        .content-text {
+            font-size: 1.15rem;
+            line-height: 1.9;
+            color: #e2e8f0;
+        }
+        
+        .list {
+            margin-top: 8px;
+            padding-right: 18px;
+        }
+        
+        .list li {
+            margin-bottom: 6px;
+        }
+        
+        .profile-box {
+            display: flex;
+            gap: 24px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .profile-text {
+            flex: 1 1 260px;
+        }
+        
+        .profile-photo {
+            width: 210px;
+            height: 210px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 4px solid rgba(56,189,248,0.9);
+            box-shadow: 0 0 25px rgba(56,189,248,0.9);
+            flex-shrink: 0;
+        }
+        
+        .profile-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: contrast(1.1) saturate(1.05);
+        }
+        
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 26px;
+        }
+        
+        .nav-btn {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 11px 24px;
+            border-radius: 999px;
+            font-size: 1.05rem;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .nav-btn:hover {
+            background: var(--accent2);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(15,23,42,0.5);
+        }
+        
+        .nav-btn:disabled {
+            background: #475569;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .slide-indicators {
+            display: flex;
+            justify-content: center;
+            margin-top: 16px;
+            gap: 8px;
+        }
+        
+        .indicator {
+            width: 11px;
+            height: 11px;
+            border-radius: 50%;
+            background: #64748b;
+            cursor: pointer;
+            transition: all 0.25s ease;
+        }
+        
+        .indicator.active {
+            background: var(--accent2);
+            transform: scale(1.2);
+        }
+        
+        .progress-bar {
+            height: 4px;
+            background: rgba(148,163,184,0.35);
+            border-radius: 999px;
+            margin-top: 18px;
+            overflow: hidden;
+        }
+        
+        .progress {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent), var(--accent2));
+            width: 0%;
+            transition: width 0.25s ease;
+        }
+        
+        .header-bar {
+            background: rgba(15,23,42,0.95);
+            padding: 12px 0;
+            text-align: center;
+            margin-bottom: 18px;
+            border-radius: 12px;
+            box-shadow: 0 7px 22px rgba(0,0,0,0.55);
+            backdrop-filter: blur(8px);
+            position: sticky;
+            top: 10px;
+            z-index: 100;
+        }
+        
+        .header-title {
+            font-size: 1.4rem;
+            color: var(--accent2);
+            margin-bottom: 4px;
+        }
+        
+        .header-subtitle {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+        }
+        
+        .tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(15,23,42,0.85);
+            padding: 6px 12px;
+            border-radius: 999px;
+            font-size: 0.9rem;
+            color: var(--accent2);
+            border: 1px solid rgba(34,197,94,0.6);
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @media (max-width: 768px) {
+            .slide {
+                padding: 24px 18px;
+                min-height: 520px;
+            }
+            
+            .slide-title {
+                font-size: 2.1rem;
+            }
+            
+            .profile-box {
+                flex-direction: column-reverse;
+                align-items: flex-start;
+            }
+            
+            .profile-photo {
+                width: 170px;
+                height: 170px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- شريط العنوان -->
+    <div class="header-bar">
+        <div class="header-title">نيكولا تسلا - عرض تقديمي</div>
+        <div class="header-subtitle">
+            عالم الكهرباء الذي صنع أساس المستقبل | الشريحة 
+            <span id="current-slide-number">1</span> من 
+            <span id="total-slides">5</span>
+        </div>
+    </div>
+    
+    <div class="presentation-container">
+        <!-- الشريحة 1: الغلاف -->
+        <div class="slide active" id="slide1">
+            <div class="slide-header">
+                <h1 class="slide-title">نيكولا تسلا</h1>
+                <p class="slide-subtitle">العالم الذي حوّل الكهرباء إلى حضارة</p>
+            </div>
+            
+            <div class="content-box">
+                <h2 class="content-title">فكرة العرض</h2>
+                <p class="content-text">
+                    تقديم عالم واحد فقط، لكن تأثيره يساوي مئات العلماء:
+                    كيف عاش نيكولا تسلا، ماذا قدّم، وكيف تتحرك حياتنا اليوم على أفكاره
+                    بدون ما نحس.
+                </p>
+            </div>
+            
+            <div class="content-box">
+                <h2 class="content-title">محاور بسيطة وواضحة:</h2>
+                <ul class="content-text list">
+                    <li>من هو نيكولا تسلا؟</li>
+                    <li>متى و أين وُلد؟</li>
+                    <li>أهم أعماله واكتشافاته</li>
+                    <li>كيف أثّرت اكتشافاته على حياتنا اليوم</li>
+                </ul>
+            </div>
+            
+            <div class="navigation">
+                <button class="nav-btn" onclick="prevSlide()" disabled>
+                    <i class="fas fa-arrow-right"></i> السابقة
+                </button>
+                <button class="nav-btn" onclick="nextSlide()">
+                    التالية <i class="fas fa-arrow-left"></i>
+                </button>
+            </div>
+            
+            <div class="progress-bar">
+                <div class="progress" style="width: 20%;"></div>
+            </div>
+            
+            <div class="slide-indicators">
+                <div class="indicator active" onclick="goToSlide(1)"></div>
+                <div class="indicator" onclick="goToSlide(2)"></div>
+                <div class="indicator" onclick="goToSlide(3)"></div>
+                <div class="indicator" onclick="goToSlide(4)"></div>
+                <div class="indicator" onclick="goToSlide(5)"></div>
+            </div>
+        </div>
+        
+        <!-- الشريحة 2: من هو؟ + صورة -->
+        <div class="slide" id="slide2">
+            <div class="slide-header">
+                <h1 class="slide-title">من هو نيكولا تسلا؟</h1>
+                <p class="slide-subtitle">تعريف سريع + صورة العالم</p>
+            </div>
+            
+            <div class="content-box">
+                <div class="profile-box">
+                    <div class="profile-text">
+                        <h2 class="content-title">تعريف مختصر</h2>
+                        <p class="content-text">
+                            نيكولا تسلا هو <strong>عالم فيزياء ومهندس كهرباء</strong> ركّز على ابتكار
+                            أنظمة كاملة للكهرباء، وليس جهازًا واحدًا فقط. أغلب الشبكات الكهربائية
+                            الحديثة مبنية على أفكاره وتصميماته.
+                        </p>
+                        <p class="content-text">
+                            كان يتخيّل مستقبلًا تمتلئ فيه المدن بالضوء، والطاقة تُنقل لمسافات
+                            بعيدة، والمعلومات تنتقل عبر الهواء بدون أسلاك. كثير من هذه الرؤى أصبحت
+                            واقعًا نعيشه اليوم.
+                        </p>
+                        <span class="tag">
+                            <i class="fa-solid fa-bolt"></i>
+                            أبو الكهرباء الحديثة
+                        </span>
+                    </div>
+                    <div class="profile-photo">
+                        <!-- تقدر تغير صورة تسلا بالرابط اللي تبيه -->
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/d/d4/N.Tesla.JPG" alt="Nikola Tesla">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="navigation">
+                <button class="nav-btn" onclick="prevSlide()">
+                    <i class="fas fa-arrow-right"></i> السابقة
+                </button>
+                <button class="nav-btn" onclick="nextSlide()">
+                    التالية <i class="fas fa-arrow-left"></i>
+                </button>
+            </div>
+            
+            <div class="progress-bar">
+                <div class="progress" style="width: 40%;"></div>
+            </div>
+            
+            <div class="slide-indicators">
+                <div class="indicator" onclick="goToSlide(1)"></div>
+                <div class="indicator active" onclick="goToSlide(2)"></div>
+                <div class="indicator" onclick="goToSlide(3)"></div>
+                <div class="indicator" onclick="goToSlide(4)"></div>
+                <div class="indicator" onclick="goToSlide(5)"></div>
+            </div>
+        </div>
+        
+        <!-- الشريحة 3: الميلاد -->
+        <div class="slide" id="slide3">
+            <div class="slide-header">
+                <h1 class="slide-title">متى و أين وُلد؟</h1>
+                <p class="slide-subtitle">نقطة البداية في حياة تسلا</p>
+            </div>
+            
+            <div class="content-box">
+                <h2 class="content-title">بيانات الميلاد</h2>
+                <p class="content-text">
+                    <strong>تاريخ الميلاد:</strong> 10 يوليو 1856م<br>
+                    <strong>المكان:</strong> قرية سميلجان – الإمبراطورية النمساوية (كرواتيا حاليًا)
+                </p>
+            </div>
+            
+            <div class="content-box">
+                <h2 class="content-title">مسار حياته باختصار</h2>
+                <ul class="content-text list">
+                    <li><strong>1884م:</strong> وصل إلى الولايات المتحدة وبدأ العمل في مجال الكهرباء.</li>
+                    <li><strong>1888م:</strong> عرض نظام التيار المتردد الذي غيّر طريقة نقل الطاقة في العالم.</li>
+                    <li><strong>1891–1900م:</strong> أجرى تجارب على الكهرباء والاتصال اللاسلكي وبنى برج تسلا.</li>
+                    <li><strong>1943م:</strong> توفي في نيويورك بعد أن ترك عشرات الاختراعات والأفكار المستقبلية.</li>
+                </ul>
+            </div>
+            
+            <div class="navigation">
+                <button class="nav-btn" onclick="prevSlide()">
+                    <i class="fas fa-arrow-right"></i> السابقة
+                </button>
+                <button class="nav-btn" onclick="nextSlide()">
+                    التالية <i class="fas fa-arrow-left"></i>
+                </button>
+            </div>
+            
+            <div class="progress-bar">
+                <div class="progress" style="width: 60%;"></div>
+            </div>
+            
+            <div class="slide-indicators">
+                <div class="indicator" onclick="goToSlide(1)"></div>
+                <div class="indicator" onclick="goToSlide(2)"></div>
+                <div class="indicator active" onclick="goToSlide(3)"></div>
+                <div class="indicator" onclick="goToSlide(4)"></div>
+                <div class="indicator" onclick="goToSlide(5)"></div>
+            </div>
+        </div>
+        
+        <!-- الشريحة 4: الأعمال -->
+        <div class="slide" id="slide4">
+            <div class="slide-header">
+                <h1 class="slide-title">أهم أعماله واكتشافاته</h1>
+                <p class="slide-subtitle">لبّ الموضوع في نقاط قصيرة</p>
+            </div>
+            
+            <div class="content-box">
+                <h2 class="content-title">أبرز ما قدّم تسلا</h2>
+                <ul class="content-text list">
+                    <li><strong>نظام التيار المتردد (AC):</strong> النظام المستخدم اليوم في شبكات الكهرباء حول العالم.</li>
+                    <li><strong>المحرّك الكهربائي الحثي:</strong> قلب كثير من الآلات الصناعية والمحرّكات الحديثة.</li>
+                    <li><strong>المحوّلات الكهربائية:</strong> رفع وخفض الجهد لنقل الطاقة لمسافات بعيدة.</li>
+                    <li><strong>التجارب على الاتصال اللاسلكي:</strong> أسّست لاحقًا للراديو والواي فاي.</li>
+                    <li><strong>فكرة نقل الطاقة لاسلكيًا:</strong> أساس الشواحن اللاسلكية وأبحاث الطاقة عن بُعد.</li>
+                </ul>
+            </div>
+            
+            <div class="navigation">
+                <button class="nav-btn" onclick="prevSlide()">
+                    <i class="fas fa-arrow-right"></i> السابقة
+                </button>
+                <button class="nav-btn" onclick="nextSlide()">
+                    التالية <i class="fas fa-arrow-left"></i>
+                </button>
+            </div>
+            
+            <div class="progress-bar">
+                <div class="progress" style="width: 80%;"></div>
+            </div>
+            
+            <div class="slide-indicators">
+                <div class="indicator" onclick="goToSlide(1)"></div>
+                <div class="indicator" onclick="goToSlide(2)"></div>
+                <div class="indicator" onclick="goToSlide(3)"></div>
+                <div class="indicator active" onclick="goToSlide(4)"></div>
+                <div class="indicator" onclick="goToSlide(5)"></div>
+            </div>
+        </div>
+        
+        <!-- الشريحة 5: الأثر اليوم + الخاتمة -->
+        <div class="slide" id="slide5">
+            <div class="slide-header">
+                <h1 class="slide-title">أثره على البشرية اليوم</h1>
+                <p class="slide-subtitle">كيف نعيش على اختراعاته بدون ما ننتبه؟</p>
+            </div>
+            
+            <div class="content-box">
+                <h2 class="content-title">أين نرى تسلا اليوم؟</h2>
+                <ul class="content-text list">
+                    <li>الكهرباء في البيوت والمدارس والمستشفيات تعتمد على نظام التيار المتردد.</li>
+                    <li>المصانع وخطوط الإنتاج والمصاعد والمضخّات تعمل بالمحرّكات الكهربائية التي طور مبدؤها.</li>
+                    <li>الاتصالات اللاسلكية (راديو، واي فاي، بلوتوث) مبنية على نفس أفكار إرسال الإشارات عبر الهواء.</li>
+                    <li>السيارات الكهربائية والطاقات المتجددة تستخدم محركات وأنظمة تحكم قريبة من أفكار تسلا.</li>
+                </ul>
+            </div>
+            
+            <div class="content-box">
+                <h2 class="content-title">الخلاصة</h2>
+                <p class="content-text">
+                    لو حذفنا نيكولا تسلا من التاريخ، سنفقد جزءًا ضخمًا من الكهرباء والصناعة
+                    والاتصالات في عالمنا الحالي. باختصار:
+                    <strong>تسلا لم يخترع جهازًا واحدًا… بل اخترع البنية التحتية لمستقبل البشرية.</strong>
+                </p>
+            </div>
+            
+            <div class="navigation">
+                <button class="nav-btn" onclick="prevSlide()">
+                    <i class="fas fa-arrow-right"></i> السابقة
+                </button>
+                <button class="nav-btn" onclick="nextSlide()" disabled>
+                    التالية <i class="fas fa-arrow-left"></i>
+                </button>
+            </div>
+            
+            <div class="progress-bar">
+                <div class="progress" style="width: 100%;"></div>
+            </div>
+            
+            <div class="slide-indicators">
+                <div class="indicator" onclick="goToSlide(1)"></div>
+                <div class="indicator" onclick="goToSlide(2)"></div>
+                <div class="indicator" onclick="goToSlide(3)"></div>
+                <div class="indicator" onclick="goToSlide(4)"></div>
+                <div class="indicator active" onclick="goToSlide(5)"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentSlide = 1;
+        const totalSlides = 5;
+        
+        document.getElementById('total-slides').textContent = totalSlides;
+        
+        function showSlide(n) {
+            const slides = document.getElementsByClassName('slide');
+            for (let i = 0; i < slides.length; i++) {
+                slides[i].classList.remove('active');
+            }
+            document.getElementById('slide' + n).classList.add('active');
+            
+            const indicators = document.getElementsByClassName('indicator');
+            for (let i = 0; i < indicators.length; i++) {
+                indicators[i].classList.remove('active');
+            }
+            indicators[n-1].classList.add('active');
+            
+            document.getElementById('current-slide-number').textContent = n;
+            
+            const progress = (n / totalSlides) * 100;
+            document.querySelectorAll('.progress').forEach(p => p.style.width = progress + '%');
+        }
+        
+        function nextSlide() {
+            if (currentSlide < totalSlides) {
+                currentSlide++;
+                showSlide(currentSlide);
+            }
+        }
+        
+        function prevSlide() {
+            if (currentSlide > 1) {
+                currentSlide--;
+                showSlide(currentSlide);
+            }
+        }
+        
+        function goToSlide(n) {
+            currentSlide = n;
+            showSlide(currentSlide);
+        }
+        
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'ArrowRight' || event.key === 'Right') {
+                prevSlide();
+            } else if (event.key === 'ArrowLeft' || event.key === 'Left') {
+                nextSlide();
+            }
+        });
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            showSlide(1);
+        });
+    </script>
+</body>
+</html>
